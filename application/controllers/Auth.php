@@ -38,7 +38,7 @@ class Auth extends CI_Controller {
             
             if($this->user->verify_login() === true){
                 $this->session->logged_in = true;
-                redirect('/dashboard');
+                redirect('/dashboard/penjualan');
             } else {
                 redirect('/');
             }

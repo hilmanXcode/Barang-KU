@@ -12,7 +12,7 @@
   
 	<!-- Vendors Style-->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>/css/vendors_css.css">
-	  
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>/css/skin_color.css">	

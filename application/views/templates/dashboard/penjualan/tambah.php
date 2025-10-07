@@ -6,34 +6,42 @@
   
   ?>
     
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid bg-white rounded">
-                <?php echo form_open('dashboard/insertpenjualan') ?>
+                <?php echo form_open('/dashboard/penjualan/insertpenjualan') ?>
                 <div class="p-3">
-                    <h3 class="mb-2">Tambah Penjualan</h3>
+                    <h3 class="mb-2 fw-bold">📈 Tambah Penjualan</h3>
                     <div class="form-group row">
-						<label class="col-form-label col-md-2 my-3">Nama Barang</label>
+						<label class="col-form-label col-md-2 my-3">Pilih Barang</label>
 						<div class="col-md-10 my-3">
-							<input class="form-control" type="text" name="nama_barang">
+							<select class="form-select" name="id_barang" id="fetchstock" required>
+								<?php
+									if(!$data_barang) {
+								?>
+									<option value="-1" selected>-- Data Barang Kosong --</option>
+								<?php } ?>
+								<option value="-1" selected>-- Pilih Barang --</option>
+								<?php foreach($data_barang as $data) { ?>
+									<option value="<?php echo $data->id ?>"><?php echo $data->nama_barang ?></option>
+								<?php } ?>
+								
+							</select>
 							
 						</div>
 					</div>
-                    <div class="form-group row">
-						<label class="col-form-label col-md-2 mb-3">Jumlah</label>
-						<div class="col-md-10 mb-3">
-							<input class="form-control" type="text" name="jumlah">
-							
-						</div>
+
+                    <div id="stock_notifier">
 					</div>
+
+					
                     <div class="form-group row">
-						<label class="col-form-label col-md-2 mb-3">Harga</label>
+						<label class="col-form-label col-md-2 mb-3">Jumlah </label>
 						<div class="col-md-10 mb-3">
-							<input class="form-control" type="text" name="harga">
+							<input class="form-control" type="number" name="jumlah">
 							
 						</div>
 					</div>
@@ -323,3 +331,32 @@
   <div class="control-sidebar-bg"></div>
   
 </div>
+
+
+<script>
+
+	$(document).ready(function() {
+        $('#fetchstock').on('change', function() {
+            // Get the value of the selected option
+            var selectedValue = $(this).val();
+
+
+			
+
+            $.ajax({
+				url: '<?php echo base_url() ?>dashboard/barang/fetchstock',
+				method: 'POST',
+				data: { id_barang: selectedValue },
+				success:function(data){
+					if(selectedValue < 1){
+						$('#stock_notifier').html('');
+					} else {
+						$('#stock_notifier').html(data);
+					}
+				}
+			});
+        });
+    });
+
+	
+</script>

@@ -7,71 +7,42 @@
   ?>
     
 
-	
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="container-full">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid bg-white rounded p-5">
+                    
+                    <h3 class="fw-bold">📦 Data Barang</h3>
+                    <table id="myTable" class="display">
+                      <thead>
+                          <tr>
+                              <?php ?>
+                              <th class="text-start">Nama Barang</th>
+                              <th class="text-start">Stock</th>
+                              <th class="text-start">Harga</th>
+                              <th class="text-start">Action</th>
+                          </tr> 
+                      </thead>
+                      <tbody>
+                          <?php foreach($data_barang as $data){ ?>
+                          <tr id="<?php echo $data->id; ?>">
+                              <td class="text-start">📦 <?= $data->nama_barang; ?></td>
+                              <td class="text-start"><?= $data->stock; ?></td>
+                              <td class="text-start"><?= $data->harga; ?></td>
+                              <td>
+                                <a class="btn btn-primary" href="<?php echo base_url(); ?>dashboard/barang/edit/<?= $data->id ?>">
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger hapus_barang" href="#">Hapus</a>
+                              </td>
+                          </tr>
+                          <?php } ?>
+                      </tbody>
+                  </table>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-	  <div class="container-full">
-		<!-- Main content -->
-		<section class="content">
-			<h3 class="fw-bold">📊 Data Penjualan</h3>
-			
-			<div class="d-flex gap-4" style="margin-top: 20px;">
-
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-info fs-1 fa-calendar-days"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Hari Ini</h1>
-						<h1 class="fs-5"><?php echo $date->total_transaksi; ?> Transaksi</h1>
-					</div>
-				</div>
-				
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-danger fs-1 fa-calendar"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Bulan <?php echo date('F'); ?></h1>
-						<h1 class="fs-5"><?php echo $bulan->total_transaksi; ?> Transaksi</h1>
-					</div>
-				</div>
-				
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-success fs-1 fa-calendar"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Tahun <?php echo date('Y'); ?></h1>
-						<h1 class="fs-5"><?php echo $year->total_transaksi ?> Transaksi</h1>
-					</div>
-				</div>
-			
-			</div>
-			<canvas id="myChart"></canvas>
-            <table id="myTable" class="display">
-                <thead>
-                    <tr>
-                        <th class="text-start">No</th>
-                        <th class="text-start">Nama Barang</th>
-                        <th class="text-start">Jumlah</th>
-                        <th class="text-start">Harga Satuan</th>
-                        <th class="text-start">Total Harga</th>
-                        <th class="text-start">Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-						$no = 0;
-						foreach($datapenjualan as $data){ 
-						$no++;
-					?>
-                    <tr>
-                        <td class="text-start"><?= $no; ?></td>
-                        <td class="text-start"><?= $data->nama_barang; ?></td>
-                        <td class="text-start"><?= $data->jumlah; ?></td>
-                        <td class="text-start"><?= $data->harga_satuan; ?></td>
-                        <td class="text-start"><?= $data->jumlah * $data->harga_satuan; ?></td>
-                        <td class="text-start"><?= $data->tanggal . " " . getMonthName($data->tahun . "-" . $data->bulan . "-" . $data->tanggal) . " " . $data->tahun; ?></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            </div>
 		</section>
 		<!-- /.content -->
 	  </div>
@@ -355,72 +326,43 @@
 
 
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-        type: 'bar', // Or 'line', 'scatter', etc.
-        data: {
-            labels: [
-                <?php foreach($hari as $date){ ?>
-                    <?php echo $date->tanggal . ","; ?>
-                <?php } ?>
-            ],
-            datasets: [{
-                label: 'Actual Sales',
-                data: [
-                    <?php 
-                        $totals = [];
+    new DataTable('#myTable');
 
-                        foreach ($totalinDay as $row) {
-                            
-                            $tanggal = $row->tanggal;
-                            $harga   = (int)$row->total_harga;
+    $(".hapus_barang").click(function(){
 
-                            if (!isset($totals[$tanggal])) {
-                                $totals[$tanggal] = 0;
-                            }
+    var id = $(this).parents("tr").attr("id");
 
-                            $totals[$tanggal] += $harga;
+    Swal.fire({
+        title: "Kamu yakin?",
+        text: "Kamu tidak bisa mengembalikan data yang telah di hapus!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, saya yakin"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "<?php echo base_url() ?>/dashboard/barang/delete/" + id, // API endpoint for deletion
+                type: "DELETE", // HTTP DELETE method
+                success: function(response) {
+                    Swal.fire({
+                        title: "Yeay!",
+                        text: "🥳 Kamu berhasil menghapus barang!",
+                        icon: "success"
+                    }).then((result) => {
+                        if(result.isConfirmed) {
+                            window.location.href = "<?php echo base_url() ?>/dashboard/barang";
                         }
-
-                        echo implode(',', array_values($totals));
-                    ?>
+                    });
                     
-                
-                    
-
-                ],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                annotation: {
-                    annotations: [{
-                        type: 'line',
-                        mode: 'horizontal', // For a horizontal target line
-                        scaleID: 'y', // The ID of the y-axis to attach the line to
-                        value: 300000, // The y-axis value where the line should be drawn
-                        borderColor: 'red',
-                        borderWidth: 2,
-                        label: {
-                            enabled: true,
-                            content: 'Target',
-                            position: 'start' // Position of the label
-                        }
-                    }]
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting item:", error);
                 }
-            },
-            scales: {
-                y: { // Ensure your y-axis has an ID if you're specifying scaleID
-                    beginAtZero: true
-                }
-            }
+            });
         }
+        });
     });
 
-    	
-    new DataTable('#myTable');
 </script>

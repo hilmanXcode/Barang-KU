@@ -8,7 +8,7 @@
 						<div class="bg-white rounded10 shadow-lg">
 							<div class="content-top-agile p-20 pb-0">
 								<h2 class="text-primary">Manajemen Barang</h2>
-								<p class="mb-0">Login untuk mulai manajemen</p>							
+								<p class="mb-0">Login untuk mulai</p>							
 							</div>
 							<div class="p-40">
 								<?php echo form_open('auth/login'); ?>

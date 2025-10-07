@@ -5,14 +5,14 @@
 			<span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
 		</a>	
 		<!-- Logo -->
-		<a href="<?php echo base_url(); ?>/dashboard" class="logo">
+		<a href="<?php echo base_url(); ?>/dashboard/penjualan" class="logo">
 		  <!-- logo-->
 		  <div class="logo-lg">
 			  <span class="light-logo">
-                <h5>Manajemen Barang</h5>
+                <h5>BarangKU</h5>
               </span>
 			  <span class="dark-logo">
-                <h5>Manajemen Barang</h5>
+                <h5>BarangKU</h5>
               </span>
 		  </div>
 		</a>	
@@ -44,7 +44,7 @@
 			  <ul class="sidebar-menu" data-widget="tree">	
 				<li class="header">Dashboard & Apps</li>
 				<li class="treeview">
-				  <a href="<?php echo base_url(); ?>/dashboard">
+				  <a href="<?php echo base_url(); ?>/dashboard/penjualan">
 					<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
 					<span>Dashboard</span>
 					<span class="pull-right-container">
@@ -53,7 +53,7 @@
 				  </a>
 				  <ul class="treeview-menu">
 
-					<li><a href="<?php echo base_url(); ?>/dashboard"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Laporan Penjualan</a></li>
+					<li><a href="<?php echo base_url(); ?>/dashboard/penjualan"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Laporan Penjualan</a></li>
 					
 				  </ul>
 				</li>
@@ -68,7 +68,39 @@
 				  </a>
 				  <ul class="treeview-menu">
 
-					<li><a href="<?php echo base_url(); ?>/dashboard/penjualan"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Tambah Data Penjualan</a></li>
+					<li><a href="<?php echo base_url(); ?>/dashboard/penjualan/tambah"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Tambah Data Penjualan</a></li>
+					
+				  </ul>
+				</li>
+				
+				
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-File"><span class="path1"></span><span class="path2"></span></i>
+					<span>Barang</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+
+					<li><a href="<?php echo base_url(); ?>/dashboard/barang"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Manage Barang</a></li>
+					<li><a href="<?php echo base_url(); ?>/dashboard/barang/tambah"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Tambah Barang</a></li>
+					
+				  </ul>
+				</li>
+
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+					<span>Settings</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+
+					<li><a href="<?php echo base_url(); ?>/dashboard/penjualan/target"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Setting Target Bulanan</a></li>
 					
 				  </ul>
 				</li>

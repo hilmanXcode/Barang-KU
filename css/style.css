@@ -93,7 +93,32 @@ Waves
 @import url(../assets/vendor_components/animate/animate.css);
 html {
   height: 100%;
-  font-size: 14px; }
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Example of Reboot's heading reset */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem; /* Example margin */
+}
+
+/* Example of Reboot's paragraph reset */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem; /* Example margin */
+}
 
 body {
   height: 100%; }
