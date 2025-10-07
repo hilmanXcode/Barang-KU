@@ -65,8 +65,8 @@
                         <td class="text-start"><?= $no; ?></td>
                         <td class="text-start"><?= $data->nama_barang; ?> (id:<?= $data->id; ?>)</td>
                         <td class="text-start"><?= $data->jumlah; ?></td>
-                        <td class="text-start"><?= $data->harga_satuan; ?></td>
-                        <td class="text-start"><?= $data->jumlah * $data->harga_satuan; ?></td>
+                        <td class="text-start">Rp. <?= number_format($data->harga_satuan, 0, ",", "."); ?></td>
+                        <td class="text-start">Rp. <?= number_format($data->jumlah * $data->harga_satuan, 0, ",", "."); ?></td>
                         <td class="text-start"><?= $data->tanggal . " " . getMonthName($data->tahun . "-" . $data->bulan . "-" . $data->tanggal) . " " . $data->tahun; ?></td>
                     </tr>
                     <?php } ?>
@@ -402,7 +402,7 @@
                         type: 'line',
                         mode: 'horizontal', // For a horizontal target line
                         scaleID: 'y', // The ID of the y-axis to attach the line to
-                        value: 300000, // The y-axis value where the line should be drawn
+                        value: <?= $target_bulanan->target_bulanan ?>, // The y-axis value where the line should be drawn
                         borderColor: 'red',
                         borderWidth: 2,
                         label: {

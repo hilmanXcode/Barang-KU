@@ -57,6 +57,13 @@
 			transports: ["websocket"]
 		});
 
+		socket.on("connect_error", (err) => {
+			Toastify({
+				text: "😨 Tidak bisa melakukan koneksi ke websocket.",
+			}).showToast();
+		
+		});
+
 		socket.on('notification', (msg) => {
 			Toastify({
 				text: msg,

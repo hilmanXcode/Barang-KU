@@ -12,9 +12,25 @@
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-            <div class="container-fluid bg-white rounded p-5">
-                <h3 class="fw-bold">🎯 Setting Target</h3>
-
+           <div class="container-fluid bg-white rounded">
+                <?php echo form_open('/dashboard/penjualan/settarget') ?>
+                <div class="p-3">
+                    <h3 class="mb-2 fw-bold">🎯 Setting Target</h3>
+                    <div class="form-group row">
+						<label class="col-form-label col-md-2 my-3">Target Bulan Ini</label>
+						<div class="col-md-10 my-3">
+							<input class="form-control" type="text" value="<?= $data->target_bulanan ?>" name="target_bulanan">
+							
+						</div>
+					</div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="waves-effect waves-light btn btn-primary d-flex justify-content-center align-items-center gap-2" href="#">
+                            <i class="fa fa-save"></i> Simpan
+                        </button>
+                    </div>
+                </div>
+                </form>
             </div>
 		</section>
 		<!-- /.content -->

@@ -25,7 +25,8 @@ class Penjualan extends CI_Controller {
             "datapenjualan" => $this->penjualan_model->getAllData(),
             "bulan" => $this->penjualan_model->getTransactions('month'),
             "date" => $this->penjualan_model->getTransactions('date'),
-            "year" => $this->penjualan_model->getTransactions('year')
+            "year" => $this->penjualan_model->getTransactions('year'),
+            "target_bulanan" => $this->penjualan_model->getTargetBulanan()
         );
         $this->load->view('templates/dashboard/header', $data);
         $this->load->view('dashboard/index', $data);
@@ -50,15 +51,48 @@ class Penjualan extends CI_Controller {
 
     public function target(){
 
+        $this->load->model("penjualan_model");
+
+        $data = array(
+            "page" => "Setting Target Bulanan",
+            "data" => $this->penjualan_model->getTargetBulanan()
+        );
+
+        $this->load->view('templates/dashboard/header', $data);
+        $this->load->view('dashboard/penjualan/settarget', $data);
+        $this->load->view('templates/dashboard/footer');
+    }
+
+    public function settarget(){
+        
+        $this->load->model('penjualan_model');
 
         $data = array(
             "page" => "Setting Target Bulanan"
         );
 
+        $this->form_validation->set_rules('target_bulanan', 'Target Bulanan', 'required|numeric|is_natural_no_zero');
 
-        $this->load->view('templates/dashboard/header', $data);
-        $this->load->view('dashboard/penjualan/settarget', $data);
-        $this->load->view('templates/dashboard/footer');
+        if($this->form_validation->run() === false){
+            $data = array(
+                "page" => "Setting Target Bulanan",
+                "errors" => $this->form_validation->error_array(),
+                "data" => $this->penjualan_model->getTargetBulanan()
+            );
+
+            $this->load->view('templates/dashboard/header', $data);
+            $this->load->view('dashboard/penjualan/settarget', $data);
+            $this->load->view('templates/dashboard/footer');
+
+        } else {
+            $this->penjualan_model->setTargetBulanan();
+
+            $this->session->success_message = "🥳 Yeay berhasil mengupdate target bulanan";
+
+            redirect('/dashboard/penjualan');
+        }
+
+
     }
 
     public function insertPenjualan(){

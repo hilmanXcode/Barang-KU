@@ -101,6 +101,30 @@ class Penjualan_model extends CI_Model {
         return $query->result();
     }
 
+    public function getTargetBulanan(){
+        $query = $this->db->get("settings");
+
+        return $query->row();
+    }
+
+    public function setTargetBulanan(){
+        $target = $this->getTargetBulanan();
+        $target_input = $this->input->post('target_bulanan');
+        
+        
+        if(!isset($target)){
+            $data = array(
+                "target_bulanan" => $target_input
+            );
+            
+            $this->db->insert("settings", $data);
+        } else {
+            $this->db->query("UPDATE settings SET target_bulanan = $target_input");
+        }
+
+
+    }
+
 
 
 }

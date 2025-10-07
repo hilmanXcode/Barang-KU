@@ -16,6 +16,9 @@
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>/css/skin_color.css">	
+  <script src="<?php echo base_url(); ?>/js/socket.io.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">  
+
 
 </head>
 <body class="hold-transition theme-primary">

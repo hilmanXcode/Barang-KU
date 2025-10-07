@@ -28,9 +28,9 @@
                       <tbody>
                           <?php foreach($data_barang as $data){ ?>
                           <tr id="<?php echo $data->id; ?>">
-                              <td class="text-start">📦 <?= $data->nama_barang; ?></td>
+                              <td class="text-start">📦 <?= $data->nama_barang; ?> (id: <?= $data->id ?>)</td>
                               <td class="text-start"><?= $data->stock; ?></td>
-                              <td class="text-start"><?= $data->harga; ?></td>
+                              <td class="text-start">Rp. <?= number_format($data->harga, 0, ",", "."); ?></td>
                               <td>
                                 <a class="btn btn-primary" href="<?php echo base_url(); ?>dashboard/barang/edit/<?= $data->id ?>">
                                     Edit
