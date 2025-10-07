@@ -75,6 +75,34 @@
 		});
 
 		$(document).ready(function() {
+			// notification_container
+			setInterval(function(){
+
+				$.ajax({
+				url: '<?php echo base_url() ?>dashboard/barang/fetchnotification',
+				method: 'GET',
+					success:function(data){
+						console.log(data)
+						data.map((item) => {
+							$("#notification_container").append(`
+							
+							<div class='media py-10 px-0'>
+								<a class='avatar avatar-lg' href='#'>
+									<i class='fa-solid fa-boxes'></i>
+								</a>
+								<div class='media-body'>
+									<p class='fs-16'>
+									${item.message}
+									</p>
+								</div>
+							</div>
+
+							`);
+						})
+					}
+				});
+
+			}, 4000)
 
 
 			setInterval(function() {
@@ -82,10 +110,9 @@
 				url: '<?php echo base_url() ?>dashboard/barang/fetchoos',
 				method: 'GET',
 					success:function(data){
-						console.log(data)
+						// console.log(data)
 						data.map((item) => {
-							console.log(item.nama_barang)
-							socket.emit('notify', `Stock barang ${item.nama_barang} dengan id: ${item.id} mulai menipis, stock: ${item.stock}`)
+							socket.emit('notify', `🚨 Stock barang ${item.nama_barang} dengan id: ${item.id} mulai menipis, stock: ${item.stock}`)
 						})
 					}
 				});

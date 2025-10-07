@@ -1,5 +1,23 @@
 <div id="loader"></div>
   <header class="main-header">
+	<div class="inside-header">
+		<div class="navbar-custom-menu ">
+			<ul class="nav navbar-nav " >
+				<li class="" style="margin-right: 20px;">
+					<a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light position-relative d-flex">
+						<i class="fas fa-envelope"></i>
+						<p class="position-absolute fs-6 bg-danger px-2 rounded" style="top: -5px; right: -4px;"><?= count($notified); ?></p>
+					</a>
+				</li>
+			</ul>
+
+			<!-- <li class="" style="margin-right: 20px ">
+					<a href="" class="">
+    					<i class="fas fa-envelope "></i>
+					</a>
+				</li> -->
+		</div>
+	</div>
 	<div class="d-flex align-items-center logo-box justify-content-start">
 		<a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent" data-toggle="push-menu" role="button">
 			<span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>

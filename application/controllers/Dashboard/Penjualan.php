@@ -16,6 +16,7 @@ class Penjualan extends CI_Controller {
     public function index(){
 
         $this->load->model('penjualan_model');
+        $this->load->model('notification_model');
 
 
         $data = array(
@@ -23,10 +24,8 @@ class Penjualan extends CI_Controller {
             "hari" => $this->penjualan_model->getDay(),
             "totalinDay" => $this->penjualan_model->getTotalInDay(),
             "datapenjualan" => $this->penjualan_model->getAllData(),
-            "bulan" => $this->penjualan_model->getTransactions('month'),
-            "date" => $this->penjualan_model->getTransactions('date'),
-            "year" => $this->penjualan_model->getTransactions('year'),
-            "target_bulanan" => $this->penjualan_model->getTargetBulanan()
+            "target_bulanan" => $this->penjualan_model->getTargetBulanan(),
+            "notified" => $this->notification_model->fetchnotified()
         );
         $this->load->view('templates/dashboard/header', $data);
         $this->load->view('dashboard/index', $data);

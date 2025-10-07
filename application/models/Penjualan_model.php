@@ -43,34 +43,7 @@ class Penjualan_model extends CI_Model {
         
     }
 
-    public function getTransactions($inMonthOrDate){
-
-        $bulan = date('m');
-        $date = date('d');
-        $year = date('Y');
-
-        switch($inMonthOrDate){
-            case 'month':
-                $query = $this->db->query("SELECT COUNT(id) AS total_transaksi FROM laporan_penjualan WHERE bulan = $bulan");
-                return $query->row();
-            break;
-            
-            case 'date':
-                $query = $this->db->query("SELECT COUNT(id) AS total_transaksi FROM laporan_penjualan WHERE tanggal = $date");
-                return $query->row();
-            break;
-            
-            case 'year':
-                $query = $this->db->query("SELECT COUNT(id) AS total_transaksi FROM laporan_penjualan WHERE tahun = $year");
-                return $query->row();
-            break;
-        
-            default:
-                return "month/date/year only in parameter";
-            break;
-        }
-
-    }
+    
 
     public function getDay(){
 
@@ -116,7 +89,7 @@ class Penjualan_model extends CI_Model {
             $data = array(
                 "target_bulanan" => $target_input
             );
-            
+
             $this->db->insert("settings", $data);
         } else {
             $this->db->query("UPDATE settings SET target_bulanan = $target_input");

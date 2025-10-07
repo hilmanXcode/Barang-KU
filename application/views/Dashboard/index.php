@@ -14,7 +14,8 @@
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-			<h3 class="fw-bold">📊 Data Penjualan</h3>
+			<h3 class="fw-bold">📊 Data Penjualan </h3>
+			
 			
 			<div class="d-flex gap-4" style="margin-top: 20px;">
 
@@ -22,7 +23,17 @@
 					<div class="card-body">
 						<i class="fa-solid text-info fs-1 fa-calendar-days"></i>
 						<h1 class="fw-bold fs-6">Total Transaksi Hari Ini</h1>
-						<h1 class="fs-5"><?php echo $date->total_transaksi; ?> Transaksi</h1>
+						<h1 class="fs-5"><?php
+						
+							$count = 0;
+							foreach($datapenjualan as $data){
+								if($data->tanggal == date('d') && $data->bulan == date('m') && $data->tahun == date('Y'))
+									$count++;
+							}
+							
+							echo $count;
+						
+						?> Transaksi</h1>
 					</div>
 				</div>
 				
@@ -30,7 +41,17 @@
 					<div class="card-body">
 						<i class="fa-solid text-danger fs-1 fa-calendar"></i>
 						<h1 class="fw-bold fs-6">Total Transaksi Bulan <?php echo date('F'); ?></h1>
-						<h1 class="fs-5"><?php echo $bulan->total_transaksi; ?> Transaksi</h1>
+						<h1 class="fs-5"><?php
+						
+							$count = 0;
+							foreach($datapenjualan as $data){
+								if($data->bulan == date('m') && $data->tahun == date('Y'))
+									$count++;
+							}
+							
+							echo $count;
+						
+						?> Transaksi</h1>
 					</div>
 				</div>
 				
@@ -38,7 +59,17 @@
 					<div class="card-body">
 						<i class="fa-solid text-success fs-1 fa-calendar"></i>
 						<h1 class="fw-bold fs-6">Total Transaksi Tahun <?php echo date('Y'); ?></h1>
-						<h1 class="fs-5"><?php echo $year->total_transaksi ?> Transaksi</h1>
+						<h1 class="fs-5"><?php
+						
+							$count = 0;
+							foreach($datapenjualan as $data){
+								if($data->tahun == date('Y'))
+									$count++;
+							}
+							
+							echo $count;
+						
+						?> Transaksi</h1>
 					</div>
 				</div>
 			
@@ -86,128 +117,36 @@
   <aside class="control-sidebar">
 	  
 	<div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white" data-toggle="control-sidebar"></i></span> </div>  <!-- Create the tabs -->
-    <ul class="nav nav-tabs control-sidebar-tabs">
-      <li class="nav-item"><a href="#control-sidebar-home-tab" data-bs-toggle="tab" class="active"><i class="mdi mdi-message-text"></i></a></li>
-      <li class="nav-item"><a href="#control-sidebar-settings-tab" data-bs-toggle="tab"><i class="mdi mdi-playlist-check"></i></a></li>
-    </ul>
+    
     <!-- Tab panes -->
     <div class="tab-content">
       <!-- Home tab content -->
       <div class="tab-pane active" id="control-sidebar-home-tab">
-          <div class="flexbox">
-			<a href="javascript:void(0)" class="text-grey">
-				<i class="ti-more"></i>
-			</a>	
-			<p>Users</p>
-			<a href="javascript:void(0)" class="text-end text-grey"><i class="ti-plus"></i></a>
+          <div class="d-flex justify-content-center">
+			<p class="fw-bold">Notification</p>
 		  </div>
-		  <div class="lookup lookup-sm lookup-right d-none d-lg-block">
-			<input type="text" name="s" placeholder="Search" class="w-p100">
-		  </div>
-          <div class="media-list media-list-hover mt-20">
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-success" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/1.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Tyler</strong></a>
-				</p>
-				<p>Praesent tristique diam...</p>
-				  <span>Just now</span>
-			  </div>
-			</div>
-
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-danger" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/2.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Luke</strong></a>
-				</p>
-				<p>Cras tempor diam ...</p>
-				  <span>33 min ago</span>
-			  </div>
-			</div>
-
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-warning" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/3.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
-				</p>
-				<p>In posuere tortor vel...</p>
-				  <span>42 min ago</span>
-			  </div>
-			</div>
-
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-primary" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/4.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
-				</p>
-				<p>In posuere tortor vel...</p>
-				  <span>42 min ago</span>
-			  </div>
-			</div>			
+          <div class="media-list media-list-hover mt-20" id="notification_container">
+			<?php
+				if(!empty($notified)){
+					foreach($notified as $data){
+						echo "
+							<div class='media py-10 px-0'>
+								<a class='avatar avatar-lg' href='#'>
+									<i class='fa-solid fa-boxes'></i>
+								</a>
+								<div class='media-body'>
+									<p class='fs-16'>
+									$data->message
+									</p>
+								</div>
+							</div>
+						";
+					}
+				}
 			
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-success" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/1.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Tyler</strong></a>
-				</p>
-				<p>Praesent tristique diam...</p>
-				  <span>Just now</span>
-			  </div>
-			</div>
+			?>
 
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-danger" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/2.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Luke</strong></a>
-				</p>
-				<p>Cras tempor diam ...</p>
-				  <span>33 min ago</span>
-			  </div>
-			</div>
-
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-warning" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/3.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
-				</p>
-				<p>In posuere tortor vel...</p>
-				  <span>42 min ago</span>
-			  </div>
-			</div>
-
-			<div class="media py-10 px-0">
-			  <a class="avatar avatar-lg status-primary" href="#">
-				<img src="<?php echo base_url(); ?>/images/avatar/4.jpg" alt="...">
-			  </a>
-			  <div class="media-body">
-				<p class="fs-16">
-				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
-				</p>
-				<p>In posuere tortor vel...</p>
-				  <span>42 min ago</span>
-			  </div>
-			</div>
+			
 			  
 		  </div>
 

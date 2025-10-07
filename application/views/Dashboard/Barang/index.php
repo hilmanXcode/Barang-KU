@@ -15,6 +15,48 @@
                 <div class="container-fluid bg-white rounded p-5">
                     
                     <h3 class="fw-bold">📦 Data Barang</h3>
+					<p>💡 Tips: jika kamu ingin mencari barang yang stock level rendah/normal/habis dengan nama barang nya, ketik saja: "Rendah (nama barang)", tanpa tanda kurung </p>
+					<div class="d-flex gap-3">
+
+						<div class="card mt-5" style="width: 17rem;">
+							<div class="card-body">
+								<i class="fa-solid text-warning fs-1 fa-warning"></i>
+								<h1 class="fw-bold fs-6">Barang yang stock nya menipis ( < 20 )</h1>
+								<h1 class="fs-5">
+								
+									<?php
+										$count = 0;
+										foreach($data_barang as $data){
+											if($data->stock < 20 && $data->stock >= 1)
+												$count++;
+										}
+
+										echo $count;
+									
+									?>
+								
+								Barang</h1>
+							</div>
+						</div>
+						<div class="card mt-5" style="width: 17rem;">
+							<div class="card-body">
+								<i class="fa-solid text-danger fs-1 fa-warning"></i>
+								<h1 class="fw-bold fs-6">Barang yang stock nya habis</h1>
+								<h1 class="fs-5">
+									<?php
+										$count = 0;
+										foreach($data_barang as $data){
+											if($data->stock == 0)
+												$count++;
+										}
+
+										echo $count;
+									
+									?>
+								Barang</h1>
+							</div>
+						</div>
+					</div>
                     <table id="myTable" class="display">
                       <thead>
                           <tr>
@@ -22,6 +64,7 @@
                               <th class="text-start">Nama Barang</th>
                               <th class="text-start">Stock</th>
                               <th class="text-start">Harga</th>
+                              <th class="text-start">Stock Level</th>
                               <th class="text-start">Action</th>
                           </tr> 
                       </thead>
@@ -29,8 +72,9 @@
                           <?php foreach($data_barang as $data){ ?>
                           <tr id="<?php echo $data->id; ?>">
                               <td class="text-start">📦 <?= $data->nama_barang; ?> (id: <?= $data->id ?>)</td>
-                              <td class="text-start"><?= $data->stock; ?></td>
+                              <td class="text-start"><?= $data->stock; ?> <?php if($data->stock < 20 && $data->stock >= 1) { echo "<i class='fa-solid fa-warning text-warning'></i>"; } else if($data->stock == 0) { echo "<i class='fa-solid fa-warning text-danger'></i>";  } ?></td>
                               <td class="text-start">Rp. <?= number_format($data->harga, 0, ",", "."); ?></td>
+                              <td class="text-start"><?php if($data->stock < 20 && $data->stock >= 1) { echo "Rendah"; } else if($data->stock == 0) { echo "Habis"; } else { echo "Normal"; } ?></td>
                               <td>
                                 <a class="btn btn-primary" href="<?php echo base_url(); ?>dashboard/barang/edit/<?= $data->id ?>">
                                     Edit

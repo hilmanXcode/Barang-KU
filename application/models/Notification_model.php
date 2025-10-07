@@ -13,6 +13,20 @@ class Notification_model extends CI_Model {
         $this->db->insert("notification", $data);
     }
 
+    public function fetchnotification(){
+        $data = $this->db->get_where("notification", array("status" => "sended"))->result();
+    
+        foreach($data as $row){
+            $this->db->query("UPDATE notification SET status = 'notified' WHERE id = $row->id");
+        }
+
+        return $data;
+    }
+
+    public function fetchnotified(){
+        return $this->db->get_where("notification", array("status" => "notified"))->result();
+    }
+
 }
 
 ?>
