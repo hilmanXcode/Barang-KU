@@ -157,6 +157,36 @@ class Barang extends CI_Controller {
             echo $output;
     }
 
+    public function fetchoos(){
+
+        $this->load->model("notification_model");
+
+        $response = array();
+
+        $data_barang = $this->barang_model->fetchoos();
+        
+        foreach($data_barang as $data){
+            $query = $this->db->query("SELECT id FROM notification WHERE id_barang = $data->id");
+            if(!$query->row()){
+
+                $data_baru = array(
+                    "id" => $data->id,
+                    "nama_barang" => $data->nama_barang,
+                    "stock" => $data->stock
+                );
+
+                array_push($response, $data_baru);
+
+                $this->notification_model->insert($data->id, "Stock barang $data->nama_barang dengan id: $data->id mulai menipis, stock: $data->stock", "sended");
+
+            }
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT));
+    }
+
    
 
 }

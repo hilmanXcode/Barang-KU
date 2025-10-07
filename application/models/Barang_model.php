@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Barang_model extends CI_Model {
 
@@ -74,6 +75,16 @@ FROM penjualan, barang WHERE barang.id = penjualan.id_barang AND bulan = $bulan 
 
             return true;
         }
+    }
+
+    public function fetchoos(){
+
+        $this->db->select("id, nama_barang, stock");
+        $this->db->where("stock < ", 20);
+        $query = $this->db->get("barang");
+        
+        return $query->result();
+
     }
 
 }

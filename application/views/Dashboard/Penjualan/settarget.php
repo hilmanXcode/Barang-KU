@@ -7,71 +7,15 @@
   ?>
     
 
-	
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-			<h3 class="fw-bold">📊 Data Penjualan</h3>
-			
-			<div class="d-flex gap-4" style="margin-top: 20px;">
+            <div class="container-fluid bg-white rounded p-5">
+                <h3 class="fw-bold">🎯 Setting Target</h3>
 
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-info fs-1 fa-calendar-days"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Hari Ini</h1>
-						<h1 class="fs-5"><?php echo $date->total_transaksi; ?> Transaksi</h1>
-					</div>
-				</div>
-				
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-danger fs-1 fa-calendar"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Bulan <?php echo date('F'); ?></h1>
-						<h1 class="fs-5"><?php echo $bulan->total_transaksi; ?> Transaksi</h1>
-					</div>
-				</div>
-				
-				<div class="card" style="width: 17rem;">
-					<div class="card-body">
-						<i class="fa-solid text-success fs-1 fa-calendar"></i>
-						<h1 class="fw-bold fs-6">Total Transaksi Tahun <?php echo date('Y'); ?></h1>
-						<h1 class="fs-5"><?php echo $year->total_transaksi ?> Transaksi</h1>
-					</div>
-				</div>
-			
-			</div>
-			<canvas id="myChart"></canvas>
-            <table id="myTable" class="display">
-                <thead>
-                    <tr>
-                        <th class="text-start">No</th>
-                        <th class="text-start">Nama Barang</th>
-                        <th class="text-start">Jumlah</th>
-                        <th class="text-start">Harga Satuan</th>
-                        <th class="text-start">Total Harga</th>
-                        <th class="text-start">Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-						$no = 0;
-						foreach($datapenjualan as $data){ 
-						$no++;
-					?>
-                    <tr>
-                        <td class="text-start"><?= $no; ?></td>
-                        <td class="text-start"><?= $data->nama_barang; ?> (id:<?= $data->id; ?>)</td>
-                        <td class="text-start"><?= $data->jumlah; ?></td>
-                        <td class="text-start"><?= $data->harga_satuan; ?></td>
-                        <td class="text-start"><?= $data->jumlah * $data->harga_satuan; ?></td>
-                        <td class="text-start"><?= $data->tanggal . " " . getMonthName($data->tahun . "-" . $data->bulan . "-" . $data->tanggal) . " " . $data->tahun; ?></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            </div>
 		</section>
 		<!-- /.content -->
 	  </div>
@@ -79,7 +23,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     
-    &copy; 2021 <a href="https://www.multipurposethemes.com/">Multipurpose Themes</a>. All Rights Reserved.
+	  &copy; 2021 <a href="https://www.multipurposethemes.com/">Multipurpose Themes</a>. All Rights Reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -350,77 +294,3 @@
   <div class="control-sidebar-bg"></div>
   
 </div>
-<!-- ./wrapper -->
-	<!-- Sidebar -->
-
-
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-        type: 'bar', // Or 'line', 'scatter', etc.
-        data: {
-            labels: [
-                <?php foreach($hari as $date){ ?>
-                    <?php echo $date->tanggal . ","; ?>
-                <?php } ?>
-            ],
-            datasets: [{
-                label: 'Actual Sales',
-                data: [
-                    <?php 
-                        $totals = [];
-
-                        foreach ($totalinDay as $row) {
-                            
-                            $tanggal = $row->tanggal;
-                            $harga   = (int)$row->total_harga;
-
-                            if (!isset($totals[$tanggal])) {
-                                $totals[$tanggal] = 0;
-                            }
-
-                            $totals[$tanggal] += $harga;
-                        }
-
-                        echo implode(',', array_values($totals));
-                    ?>
-                    
-                
-                    
-
-                ],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                annotation: {
-                    annotations: [{
-                        type: 'line',
-                        mode: 'horizontal', // For a horizontal target line
-                        scaleID: 'y', // The ID of the y-axis to attach the line to
-                        value: 300000, // The y-axis value where the line should be drawn
-                        borderColor: 'red',
-                        borderWidth: 2,
-                        label: {
-                            enabled: true,
-                            content: 'Target',
-                            position: 'start' // Position of the label
-                        }
-                    }]
-                }
-            },
-            scales: {
-                y: { // Ensure your y-axis has an ID if you're specifying scaleID
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    	
-    new DataTable('#myTable');
-</script>

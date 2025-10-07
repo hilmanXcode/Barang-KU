@@ -49,7 +49,16 @@ class Penjualan extends CI_Controller {
 
 
     public function target(){
-        echo "HELLO WORLD";
+
+
+        $data = array(
+            "page" => "Setting Target Bulanan"
+        );
+
+
+        $this->load->view('templates/dashboard/header', $data);
+        $this->load->view('dashboard/penjualan/settarget', $data);
+        $this->load->view('templates/dashboard/footer');
     }
 
     public function insertPenjualan(){

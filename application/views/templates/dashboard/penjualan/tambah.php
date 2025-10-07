@@ -5,9 +5,13 @@
   include './application/views/templates/dashboard/sidebar.php';
   
   ?>
+
+  
+
     
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+		
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
@@ -56,10 +60,22 @@
 		</section>
 		<!-- /.content -->
 	  </div>
-  </div>
+
+		
+	</div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<img src="..." class="rounded me-2" alt="...">
+			<strong class="me-auto">Bootstrap</strong>
+			<small class="text-body-secondary">11 mins ago</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+			Hello, world! This is a toast message.
+		</div>
+	</div>
 	  &copy; 2021 <a href="https://www.multipurposethemes.com/">Multipurpose Themes</a>. All Rights Reserved.
   </footer>
 
@@ -333,16 +349,13 @@
 </div>
 
 
+
 <script>
 
 	$(document).ready(function() {
         $('#fetchstock').on('change', function() {
             // Get the value of the selected option
             var selectedValue = $(this).val();
-
-
-			
-
             $.ajax({
 				url: '<?php echo base_url() ?>dashboard/barang/fetchstock',
 				method: 'POST',
